@@ -30,6 +30,22 @@ function App() {
   const [answersLeft, setAnswersLeft] = useState(["trout", "salmon", "shark", "tuna"]);
   const [nextFishToName, setNextFishToName] = useState(initialFishes[0]);
 
+  const guessTheFish = (e) => {
+    e.preventDefault();
+    const { value } = e.target.fishGuess;
+
+    const newAnswersLeft = answersLeft.filter(answer => answer !== nextFishToName.name);
+    const nextFishName = newAnswersLeft[Math.floor(Math.random() * newAnswersLeft.length)];
+    const nextFish = initialFishes.find(fish => fish.name === nextFishName);
+
+    value.toLowerCase().trim() === nextFishToName.name 
+      ? setScore({ ...score, correct: score.correct + 1 })
+      : setScore({ ...score, incorrect: score.incorrect + 1 });
+    
+    setAnswersLeft(newAnswersLeft);
+    setNextFishToName(nextFish);
+  }
+
   return (
     <div className="App">
       {answersLeft.length > 0 && (
@@ -39,7 +55,7 @@ function App() {
             correctCount={score.correct} 
             answersLeft={answersLeft} 
           />
-          <GameBoard nextFishToName={nextFishToName} />
+          <GameBoard nextFishToName={nextFishToName} guess={guessTheFish}/>
         </header>
       )}
       {answersLeft.length === 0 && (
