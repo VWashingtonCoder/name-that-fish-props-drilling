@@ -1,7 +1,4 @@
 import "./styles/game-board.css";
-import { Images } from "../assets/images";
-
-
 
 export const GameBoard = ({ nextFishToName }) => {
   return (

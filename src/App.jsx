@@ -32,14 +32,16 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <ScoreBoard 
-          incorrectCount={score.incorrect} 
-          correctCount={score.correct} 
-          answersLeft={answersLeft} 
-        />
-        <GameBoard nextFishToName={nextFishToName} />
-      </header>
+      {answersLeft.length > 0 && (
+        <header>
+          <ScoreBoard 
+            incorrectCount={score.incorrect} 
+            correctCount={score.correct} 
+            answersLeft={answersLeft} 
+          />
+          <GameBoard nextFishToName={nextFishToName} />
+        </header>
+      )}
       {answersLeft.length === 0 && (
         <FinalScore correctCount={score.correct} totalCount={initialFishes.length} />
       )}
